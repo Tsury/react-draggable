@@ -227,11 +227,11 @@ class Draggable extends React.Component {
    * @returns {Object} The x and y coordinates to move the content to
    */
   getNewPosition(pageX, pageY) {
-    const { bounds, lock } = this.props;
+    const { bounds, lock, zoom } = this.props;
     const { dragStartElementPos, dragStartInputPos } = this.state;
     const newPos = {
-      x: dragStartElementPos.x + (pageX - dragStartInputPos.x),
-      y: dragStartElementPos.y + (pageY - dragStartInputPos.y),
+      x: dragStartElementPos.x + ((1 / zoom) * pageX - dragStartInputPos.x),
+      y: dragStartElementPos.y + ((1 / zoom) * pageY - dragStartInputPos.y),
     };
 
     if (bounds) {
@@ -456,6 +456,7 @@ Draggable.defaultProps = {
   preventDefaultEvents: false,
   style: null,
   touchScrollLock: false,
+  zoom: 1
 };
 
 
@@ -485,6 +486,7 @@ Draggable.defaultProps = {
  * @prop {String} touchScrollLock - If set to true, prevents the content from
  * being dragged if the user is scrolling in the opposite direction on a touch
  * device
+ * @prop {Number} zoom - Used to add support for page zoom when dragging. Default is 1.
  */
 Draggable.propTypes = {
   bounds: PropTypes.shape({
@@ -509,6 +511,7 @@ Draggable.propTypes = {
   preventDefaultEvents: PropTypes.bool,
   style: PropTypes.object,
   touchScrollLock: PropTypes.bool,
+  zoom: PropTypes.number
 };
 
 

@@ -230,8 +230,8 @@ class Draggable extends React.Component {
     const { bounds, lock, zoom } = this.props;
     const { dragStartElementPos, dragStartInputPos } = this.state;
     const newPos = {
-      x: dragStartElementPos.x + ((1 / zoom) * pageX - dragStartInputPos.x),
-      y: dragStartElementPos.y + ((1 / zoom) * pageY - dragStartInputPos.y),
+      x: dragStartElementPos.x + (1 / zoom) * (pageX - dragStartInputPos.x),
+      y: dragStartElementPos.y + (1 / zoom) * (pageY - dragStartInputPos.y),
     };
 
     if (bounds) {

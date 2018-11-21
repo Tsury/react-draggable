@@ -100,10 +100,9 @@ class Draggable extends React.Component {
    * @returns {Object} React element
    */
   render() {
-    const { className, classNameWhileDragging } = this.props;
+    const { className } = this.props;
     const classNameProp = className || '';
-    const classNameWhileDraggingProp = classNameWhileDragging || '';
-    const newClassName = `component-draggable ${classNameProp} ${classNameWhileDraggingProp}`;
+    const newClassName = `component-draggable ${classNameProp}`;
     const children = this.renderChild();
 
     return (
@@ -127,13 +126,19 @@ class Draggable extends React.Component {
    */
   renderChild() {
     const inst = this;
-    const { children, style } = this.props;
+    const { children, style, classNameWhileDragging } = this.props;
     const { elementStyle } = inst.state;
+    const classNameWhileDraggingProp = classNameWhileDragging || '';
 
     return React.Children.map(children, (child) => {
       let newStyle = {};
       let childStyle = {};
       let newElementStyle = {};
+      let childClassName = '';
+
+      if (child.props && child.props.className) {
+        childClassName = child.props.className;
+      }
 
       if (child.props && child.props.style) {
         childStyle = child.props.style;
@@ -146,6 +151,7 @@ class Draggable extends React.Component {
       newStyle = Object.assign(childStyle, newElementStyle, style);
 
       return React.cloneElement(child, {
+        className: childClassName + ' ' + classNameWhileDraggingProp,
         style: newStyle,
         ref: 'draggableChild',
       });

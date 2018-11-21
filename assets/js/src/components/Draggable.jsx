@@ -73,8 +73,14 @@ class Draggable extends React.Component {
   componentDidUpdate(prevProps) {
     const { position } = this.props;
 
-    if (position) {
+    if (position
+      && (!prevProps.position
+      || (prevProps.position
+      && ((position.x !== prevProps.position.x)
+      || (position.y !== prevProps.position.y))))) {
       this.setPosition({ x: position.x, y: position.y });
+    } else if (position && this.state.elementStyle && (!this.state.elementStyle.includes(`(${position.x}px`) || !this.state.elementStyle.includes(`${position.y}px, `))) {
+      this.positionContent();
     }
   }
 
@@ -452,7 +458,7 @@ Draggable.defaultProps = {
   preventDefaultEvents: false,
   style: null,
   touchScrollLock: false,
-  zoom: 1
+  zoom: 1,
 };
 
 
@@ -507,7 +513,7 @@ Draggable.propTypes = {
   preventDefaultEvents: PropTypes.bool,
   style: PropTypes.object,
   touchScrollLock: PropTypes.bool,
-  zoom: PropTypes.number
+  zoom: PropTypes.number,
 };
 
 

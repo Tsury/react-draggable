@@ -74,12 +74,12 @@ class Draggable extends React.Component {
     const { position } = this.props;
 
     if (position
-      && ((!prevProps.position
+      && (!prevProps.position
       || (prevProps.position
       && ((position.x !== prevProps.position.x)
-      || (position.y !== prevProps.position.y)))) || 
-      (position.x !== this.state.pos.x || position.y !== this.state.pos.y)))
-       {
+      || (position.y !== prevProps.position.y))))) {
+      this.setPosition({ x: position.x, y: position.y });
+    } else if (position && prevProps.position && position.x === prevProps.position.x && position.y === prevProps.pos.y && (position.x !== this.state.pos.x || position.y !== this.state.pos.y)) {
       this.setPosition({ x: position.x, y: position.y });
     }
   }

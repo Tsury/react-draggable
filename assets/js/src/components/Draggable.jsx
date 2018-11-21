@@ -102,9 +102,10 @@ class Draggable extends React.Component {
    * @returns {Object} React element
    */
   render() {
-    const { className } = this.props;
+    const { className, classNameWhileDragging } = this.props;
     const classNameProp = className || '';
-    const newClassName = `component-draggable ${classNameProp}`;
+    const classNameWhileDraggingProp = classNameWhileDragging || '';
+    const newClassName = `component-draggable ${classNameProp} ${classNameWhileDraggingProp}`;
     const children = this.renderChild();
 
     return (
@@ -466,6 +467,8 @@ Draggable.defaultProps = {
  * @prop {Object} children - Child React elements
  * @prop {String} className - A string of additional classnames to add
  * to the element
+ * @prop {String} classNameWhileDragging - A string of additional classnames to add
+ * to the element while it's being dragged
  * @prop {String} cssPosition - The css positioning for for the element
  * (i.e. 'absolute' or 'fixed', defaults to 'absolute')
  * @prop {Boolean} disabled - If the component is disabled

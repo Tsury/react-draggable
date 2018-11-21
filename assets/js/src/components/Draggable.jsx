@@ -350,6 +350,11 @@ class Draggable extends React.Component {
     const { scrollLocked } = this.state;
 
     if (this.mouseDownOnElement && !disabled) {
+      if (e.which !== 1) { 
+        this.onDragStop(e); 
+        return; 
+      }
+
       let pageX = e.clientX;
       let pageY = e.clientY;
 
